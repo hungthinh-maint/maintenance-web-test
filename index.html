@@ -21,24 +21,20 @@
       border-radius: 15px;
     }
 
-    input {
+    input, button {
       width: 100%;
       box-sizing: border-box;
       padding: 15px;
+      margin-top: 10px;
       font-size: 18px;
-      margin-bottom: 15px;
     }
 
     button {
-      width: 100%;
-      padding: 15px;
-      font-size: 18px;
       font-weight: bold;
-      cursor: pointer;
     }
 
     #status {
-      margin-top: 15px;
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -47,27 +43,70 @@
 
 <div class="box">
 
-  <h1>Maintenance Test</h1>
+  <h2>Maintenance Web Test</h2>
 
-  <p>Nhập dữ liệu:</p>
+  <p>Nhập dữ liệu</p>
 
   <input id="data" value="A">
 
-  <button onclick="test()">TEST</button>
+  <button onclick="submitData()">
+    SUBMIT
+  </button>
 
-  <div id="status">Ready</div>
+  <div id="status">
+    Ready
+  </div>
 
 </div>
 
 <script>
 
-function test() {
+const FLOW_URL = "https://default9b9edfb8440846c9a75d84dd9e39ae.2f.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/20/workflows/5c67679b0e3c4c1cb23f2f7aac82c96d/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=E4vJqZ8wJyS0-Zt3OJ2boYxmk0XW1jK_CZbhD4y3vFg";
 
-  const value =
+async function submitData() {
+
+  const data =
     document.getElementById("data").value;
 
-  document.getElementById("status").innerText =
-    "Web đang chạy. Data = " + value;
+  const status =
+    document.getElementById("status");
+
+  status.innerText = "Sending...";
+
+  try {
+
+    const response = await fetch(FLOW_URL, {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        data: data
+      })
+
+    });
+
+    if (response.ok) {
+
+      status.innerText =
+        "SUCCESS: " + data;
+
+    } else {
+
+      status.innerText =
+        "ERROR: HTTP " + response.status;
+
+    }
+
+  } catch (error) {
+
+    status.innerText =
+      "ERROR: " + error.message;
+
+  }
 
 }
 
