@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Maintenance Test</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+    }
+
+    .box {
+      max-width: 450px;
+      margin: 40px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 15px;
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #status {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+
+  <h1>Maintenance Test</h1>
+
+  <p>Nhập dữ liệu:</p>
+
+  <input id="data" value="A">
+
+  <button onclick="test()">TEST</button>
+
+  <div id="status">Ready</div>
+
+</div>
+
+<script>
+
+function test() {
+
+  const value =
+    document.getElementById("data").value;
+
+  document.getElementById("status").innerText =
+    "Web đang chạy. Data = " + value;
+
+}
+
+</script>
+
+</body>
+</html>
